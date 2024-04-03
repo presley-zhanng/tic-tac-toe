@@ -1,7 +1,9 @@
 //HTML elements
-const statusDiv = document.querySelector('.status')
-const resetDiv = document.querySelector('.reset')
-const cellDivs = document.querySelectorAll('.game-cell')
+const statusDiv = document.querySelector('.status');
+const resetDiv = document.querySelector('.reset');
+const cellDivs = document.querySelectorAll('.game-cell');
+const winMsgDiv = document.querySelector('.win-msg');
+const popupDiv = document.querySelector('.gameEnd-popup');
 
 
 //game constants
@@ -19,10 +21,13 @@ const letterToSym = (letter) => letter === 'x' ? xSym:oSym;
 
 const handleWin = (letter) => {
   gameIsLive = false;
+  popupDiv.classList.toggle("show");
+  console.log(popupDiv.classList)
   if (letter === 'x'){
-    statusDiv.innerHTML = `${letterToSym(letter)} has won!`;
+    winMsgDiv.innerHTML = `${letterToSym(letter)} has won!`;
+
   } else {
-    statusDiv.innerHTML = `<span>${letterToSym(letter)} has won!</span>`;
+    winMsgDiv.innerHTML = `<span>${letterToSym(letter)} has won!</span>`;
   }
 }
 
@@ -87,7 +92,8 @@ const checkGameStatus = () => {
     cellDivs[6].classList.add('won');
   } else if (topLeft && topMid && topRight && midLeft && midMid && midRight && botLeft && botMid && botRight) {
     gameIsLive = false;
-    statusDiv.innerHTML = 'Game is tied!';
+    popupDiv.classList.toggle("show");
+    winMsgDiv.innerHTML = `Game is Tied!`;
   } else {
     xIsNext = !xIsNext;
     if (xIsNext) {
@@ -103,6 +109,7 @@ const checkGameStatus = () => {
 const handleReset = () => {
   xIsNext = true;
   statusDiv.innerHTML = `${xSym} is next`;
+  popupDiv.classList.toggle("show")
   for (const cellDiv of cellDivs){
     cellDiv.classList.remove("x");
     cellDiv.classList.remove("o");
@@ -113,8 +120,8 @@ const handleReset = () => {
 
 const handleCellClick = (e) => {
   const classList = e.target.classList;
-  console.log(classList);
-  
+
+  console.log(popupDiv.classList)
   if (!gameIsLive || classList[1] === 'x' || classList[1] === 'o') {
     return;
   }
