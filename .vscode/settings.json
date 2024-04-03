@@ -1,5 +1,8 @@
 {
     "cSpell.ignoreWords": [
         "Divs"
-    ]
+    ],
+    "prettier.singleQuote": true,
+    "prettier.useTabs": true,
+    "prettier.jsxSingleQuote": true
 }
